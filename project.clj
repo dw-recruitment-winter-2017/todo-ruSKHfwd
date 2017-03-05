@@ -8,7 +8,7 @@
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler todo.handler/app
+  :ring {:handler todo.app/app
          :init todo.migration/migrate}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]

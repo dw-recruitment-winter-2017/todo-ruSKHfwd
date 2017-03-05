@@ -1,15 +1,5 @@
-(ns todo.handler
-  (:use [hiccup core page])
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [clojure.java.jdbc :as jdbc]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
-
-(def spec (or (System/getenv "DATABASE_URL")
-              "postgresql://localhost:5432/todo"))
-
-(defn all-todos []
-   (into [] (jdbc/query spec ["SELECT * FROM todos ORDER BY completed ASC, id ASC"])))
+ (ns todo.views
+   (:use [hiccup core page]))
 
 (defn about []
   (html5
@@ -42,11 +32,3 @@
     [:body
       [:h1 "ToDo Index"]
       (display-todos todos)]))
-
-(defroutes app-routes
-  (GET "/" [] (index (all-todos)))
-  (GET "/about" [] (about))
-  (route/not-found "Not Found"))
-
-(def app
-  (wrap-defaults app-routes site-defaults))
