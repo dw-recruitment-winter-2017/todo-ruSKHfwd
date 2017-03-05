@@ -9,7 +9,7 @@
               "postgresql://localhost:5432/todo"))
 
 (defn all-todos []
-  (into [] (jdbc/query spec ["SELECT * FROM todos"])))
+   (into [] (jdbc/query spec ["SELECT * FROM todos ORDER BY completed ASC, id ASC"])))
 
 (defn about []
   (html5
@@ -22,16 +22,29 @@
       [:p "I'll try to add some more useful thoughts to the README."]
       [:img {:src "https://media.tenor.co/images/0ab463b889266a020b2e43272cdcfe4d/raw"}]]))
 
-(defn index []
+(defn display-todos [todos]
+  [:table
+   [:tr
+    [:td "id"]
+    [:td "body"]
+    [:td "completed"]]
+   (map
+     (fn [todo] [:tr
+                 [:td (h (:id todo))]
+                 [:td (h (:body todo))]
+                 [:td (h (:completed todo))]])
+     todos)])
+
+(defn index [todos]
   (html5
     [:head
-     [:title "Index"]]
+      [:title "Index"]]
     [:body
-     [:h1 "Index"
-      [:h2 (h (first (all-todos)))]]]))
+      [:h1 "ToDo Index"]
+      (display-todos todos)]))
 
 (defroutes app-routes
-  (GET "/" [] (index))
+  (GET "/" [] (index (all-todos)))
   (GET "/about" [] (about))
   (route/not-found "Not Found"))
 
