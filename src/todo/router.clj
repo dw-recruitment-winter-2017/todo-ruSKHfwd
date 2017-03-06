@@ -11,6 +11,7 @@
 (defn api-routes []
   (context "/api/todos" []
     (GET "/" [] (json/index (model/all)))
+    (GET "/:id" [id] (json/show (model/find_by id)))
     (POST "/" {body :body} (json/create (model/create body)))
     (PATCH "/" {body :body} (json/update_complete (model/update_complete body)))
     (DELETE "/" {body :body} (json/delete (model/delete body)))))
