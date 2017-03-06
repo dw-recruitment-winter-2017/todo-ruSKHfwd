@@ -12,4 +12,5 @@
          :init todo.migration/migrate}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                        [cheshire "5.7.0"]
                         [ring/ring-mock "0.3.0"]]}})

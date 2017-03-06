@@ -1,4 +1,4 @@
- (ns todo.views
+ (ns todo.views.http
    (:use [hiccup core page]))
 
 (defn about []
