@@ -19,6 +19,11 @@
             spec
             ["SELECT * FROM todos ORDER BY completed ASC, id ASC"]))))
 
+(defn update_complete [body]
+  (let [{completed "completed", id "id"} body]
+  (jdbc/update! spec :todos {"completed" completed} ["id = ?" id]))
+  :success)
+
 (defn create [body]
   (jdbc/insert! spec :todos body)
   :success)
