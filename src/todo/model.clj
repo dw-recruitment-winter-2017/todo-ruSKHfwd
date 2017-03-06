@@ -27,3 +27,8 @@
 (defn create [body]
   (jdbc/insert! spec :todos body)
   :success)
+
+(defn delete [body]
+  (let [{id "id"} body]
+  (jdbc/delete! spec :todos ["id = ?" id]))
+  :success)

@@ -8,6 +8,14 @@
 (defn show [todo]
   (generate-string todo))
 
-(defn new [arg]
+(defn create [arg]
   (when (= :success arg)
     (created "/" "ToDo created")))
+
+(defn update_complete [arg]
+  (when (= :success arg)
+    (status (response "ToDo updated") 204)))
+
+(defn delete [arg]
+  (when (= :success arg)
+    (status (response "ToDo deleted") 204)))

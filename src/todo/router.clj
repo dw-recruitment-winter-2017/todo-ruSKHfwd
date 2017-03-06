@@ -1,5 +1,5 @@
 (ns todo.router
-  (:require [compojure.core :refer [context defroutes GET POST PATCH]]
+  (:require [compojure.core :refer [context defroutes GET POST PATCH DELETE]]
             [todo.model :as model]
             [todo.views.json :as json]
             [todo.views.http :as http]))
@@ -11,8 +11,9 @@
 (defn api-routes []
   (context "/api/todos" []
     (GET "/" [] (json/index (model/all)))
-    (POST "/" {body :body} (json/new (model/create body)))
-    (PATCH "/" {body :body} (json/new (model/update_complete body)))))
+    (POST "/" {body :body} (json/create (model/create body)))
+    (PATCH "/" {body :body} (json/update_complete (model/update_complete body)))
+    (DELETE "/" {body :body} (json/delete (model/delete body)))))
 
 (defroutes routes
   (api-routes)
