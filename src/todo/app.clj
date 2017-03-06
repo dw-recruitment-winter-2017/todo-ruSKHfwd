@@ -4,11 +4,17 @@
             [compojure.route :as route]
             [todo.router :as router]
             [clojure.java.jdbc :as jdbc]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.json :refer :all]
+            [ring.middleware.defaults :refer :all]))
 
 (defroutes app-routes
   router/routes
   (route/not-found "Not Found"))
 
+(defn handler [request]
+  (prn (get-in request [:body "user"])))
+
 (def app
-  (wrap-defaults app-routes site-defaults))
+  (-> app-routes
+      (wrap-json-body handler)
+      (wrap-defaults api-defaults)))

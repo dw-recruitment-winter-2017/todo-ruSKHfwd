@@ -18,3 +18,7 @@
           (jdbc/query
             spec
             ["SELECT * FROM todos ORDER BY completed ASC, id ASC"]))))
+
+(defn create [body]
+  (jdbc/insert! spec :todos body)
+  :success)

@@ -20,10 +20,15 @@ I like to parse the response by piping it through `python -m json.tool`, but you
 
 e.g. `curl localhost:3000/api/todos | python -m json.tool`
 
-Get all todos: `localhost:3000/api/todos`
+GET all todos: `localhost:3000/api/todos`
 
 ```
 curl localhost:3000/api/todos | python -m json.tool
+```
+
+POST a new todo:
+```
+curl -X POST "localhost:3000/api/todos/" -d '{"body": "A new body", "completed": false}' -H "Content-Type: application/json"
 ```
 
 ## Running
